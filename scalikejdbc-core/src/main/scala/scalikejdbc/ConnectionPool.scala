@@ -202,7 +202,9 @@ object ConnectionPool extends LogSupport {
   def singleton(url: String, user: String, password: String,
     settings: CPSettings = ConnectionPoolSettings())(implicit factory: CPFactory = DEFAULT_CONNECTION_POOL_FACTORY): Unit = {
     add(DEFAULT_NAME, url, user, password, settings)(factory)
-    log.debug("Registered singleton connection pool : " + get().toString())
+    if (GlobalSettings.loggingConnections) {
+      log.debug("Registered singleton connection pool : " + get().toString())
+    }
   }
 
   /**
@@ -212,7 +214,9 @@ object ConnectionPool extends LogSupport {
    */
   def singleton(dataSource: DataSourceConnectionPool): Unit = {
     add(DEFAULT_NAME, dataSource)
-    log.debug("Registered singleton connection pool : " + get().toString())
+    if (GlobalSettings.loggingConnections) {
+      log.debug("Registered singleton connection pool : " + get().toString())
+    }
   }
 
   /**
@@ -222,7 +226,9 @@ object ConnectionPool extends LogSupport {
    */
   def singleton(dataSource: AuthenticatedDataSourceConnectionPool): Unit = {
     add(DEFAULT_NAME, dataSource)
-    log.debug("Registered singleton connection pool : " + get().toString())
+    if (GlobalSettings.loggingConnections) {
+      log.debug("Registered singleton connection pool : " + get().toString())
+    }
   }
 
   /**
